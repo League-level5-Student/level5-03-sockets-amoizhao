@@ -52,7 +52,7 @@ public class ServerGreeter extends Thread {
 				JOptionPane.showMessageDialog(null, "IOException thrown.");
 			}
 			//6. If the program catches a SockeTimeoutException, let the user know about it and set loop's boolean variable to false.
-
+			
 			//7. If the program catches a IOException, let the user know about it and set the loop's boolean variable to false.
 		}
 		
@@ -60,6 +60,14 @@ public class ServerGreeter extends Thread {
 
 	public static void main(String[] args) {
 		//16. In a new thread, create an object of the ServerGreeter class and start the thread. Don't forget the try-catch.
-		
+		Thread thread = new Thread(()-> {
+			try {
+				ServerGreeter sg = new ServerGreeter();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		});
+		thread.start();
 	}
 }
