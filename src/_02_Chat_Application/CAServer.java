@@ -9,9 +9,14 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
-public class CAServer {
+public class CAServer extends JFrame{
 	private int port;
 
 	private ServerSocket server;
@@ -25,6 +30,24 @@ public class CAServer {
 	}
 
 	public void start(){
+		setTitle("SERVER");
+		JPanel panel = new JPanel();
+		JTextField jtf = new JTextField(20);
+		JLabel label = new JLabel();
+		JButton send = new JButton("SEND MESSAGE");
+		panel.add(jtf);
+		panel.add(send);
+		panel.add(label);
+		add(panel);
+		setVisible(true);
+		setSize(400, 300);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		send.addActionListener((e)->{
+			String message = jtf.getText();
+			sendMessage(message);
+		});
+		
 		try {
 			server = new ServerSocket(port, 100);
 
@@ -37,8 +60,7 @@ public class CAServer {
 
 			while (connection.isConnected()) {
 				try {
-					JOptionPane.showMessageDialog(null, is.readObject());
-					System.out.println(is.readObject());
+					label.setText((String)is.readObject());
 				}catch(EOFException e) {
 					JOptionPane.showMessageDialog(null, "Connection Lost");
 					System.exit(0);

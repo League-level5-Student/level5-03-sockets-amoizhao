@@ -5,9 +5,14 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
-public class Client {
+public class CAClient extends JFrame{
 	private String ip;
 	private int port;
 
@@ -16,14 +21,30 @@ public class Client {
 	ObjectOutputStream os;
 	ObjectInputStream is;
 
-	public Client(String ip, int port) {
+	public CAClient(String ip, int port) {
 		this.ip = ip;
 		this.port = port;
 	}
 
-	public void start() {
+	public void start(){
+		setTitle("CLIENT");
+		JPanel panel = new JPanel();
+		JTextField jtf = new JTextField(20);
+		JButton send = new JButton("SEND MESSAGE");
+		JLabel label = new JLabel();
+		panel.add(jtf);
+		panel.add(send);
+		add(panel);
+		setVisible(true);
+		setSize(400, 300);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		send.addActionListener((e)->{
+			String message = jtf.getText();
+			sendMessage(message);
+		});
 		try {
-
+			
 			connection = new Socket(ip, port);
 
 			os = new ObjectOutputStream(connection.getOutputStream());
@@ -31,22 +52,22 @@ public class Client {
 
 			os.flush();
 
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		
 		while (connection.isConnected()) {
 			try {
-				JOptionPane.showMessageDialog(null, is.readObject());
-				System.out.println(is.readObject());
+				label.setText((String)is.readObject());
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
 	}
-
+	
 	public void sendMessage(String message) {
 		try {
 			if (os != null) {

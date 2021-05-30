@@ -1,6 +1,5 @@
 package _02_Chat_Application;
 
-import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
 /*
@@ -8,25 +7,26 @@ import javax.swing.JOptionPane;
  */
 
 public class ChatApp {
-	Server server;
-	Client client;
-	
-	JButton sendServ = new JButton("Send a message to the server.");
-	JButton button = new JButton("Send a message to the server.");
+	CAServer server;
+	CAClient client;
+	String msg;
 
 	public static void main(String args[]) {
 		new ChatApp();
 	}
 
 	public ChatApp() {
-		
-		String messageSent = JOptionPane.showInputDialog("Send a message to the server");
-		
-		server = new Server(8080);
-		System.out.println("Server started at: " + server.getIPAddress() + "\nPort: " + server.getPort());
-		server.sendMessage(messageSent);
-		server.start();
-		
-
+		int response = JOptionPane.showConfirmDialog(null, "Would you like to host?", "Buttons!", JOptionPane.YES_NO_OPTION);
+		if(response == JOptionPane.YES_OPTION){
+			server = new CAServer(8080);
+			server.start();
+			
+		}else{
+			String ipStr = JOptionPane.showInputDialog("Enter the IP Address");
+			String prtStr = JOptionPane.showInputDialog("Enter the port number");
+			int port = Integer.parseInt(prtStr);
+			client = new CAClient(ipStr, port);
+			client.start();
+		}
 	}
 }
