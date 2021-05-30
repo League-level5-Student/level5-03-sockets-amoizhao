@@ -65,7 +65,7 @@ public class CAClient extends JFrame{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}
+		} 
 	}
 	
 	public void sendMessage(String message) {

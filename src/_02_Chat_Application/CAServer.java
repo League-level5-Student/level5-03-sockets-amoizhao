@@ -28,7 +28,7 @@ public class CAServer extends JFrame{
 	public CAServer(int port) {
 		this.port = port;
 	}
-
+ 
 	public void start(){
 		setTitle("SERVER");
 		JPanel panel = new JPanel();

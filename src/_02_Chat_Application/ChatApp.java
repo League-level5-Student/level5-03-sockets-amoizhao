@@ -14,7 +14,7 @@ public class ChatApp {
 	public static void main(String args[]) {
 		new ChatApp();
 	}
-
+ 
 	public ChatApp() {
 		int response = JOptionPane.showConfirmDialog(null, "Would you like to host?", "Buttons!", JOptionPane.YES_NO_OPTION);
 		if(response == JOptionPane.YES_OPTION){
