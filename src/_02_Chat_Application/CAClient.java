@@ -34,6 +34,7 @@ public class CAClient extends JFrame{
 		JLabel label = new JLabel();
 		panel.add(jtf);
 		panel.add(send);
+		panel.add(label);
 		add(panel);
 		setVisible(true);
 		setSize(400, 300);
@@ -49,7 +50,7 @@ public class CAClient extends JFrame{
 
 			os = new ObjectOutputStream(connection.getOutputStream());
 			is = new ObjectInputStream(connection.getInputStream());
-
+			
 			os.flush();
 
 			

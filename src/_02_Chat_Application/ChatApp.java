@@ -7,8 +7,8 @@ import javax.swing.JOptionPane;
  */
 
 public class ChatApp {
-	CAServer server;
-	CAClient client;
+	CAServer server = new CAServer(8080);;
+	CAClient client = new CAClient(server.getIPAddress(), 8080);;
 	String msg;
 
 	public static void main(String args[]) {
@@ -22,10 +22,6 @@ public class ChatApp {
 			server.start();
 			
 		}else{
-			String ipStr = JOptionPane.showInputDialog("Enter the IP Address");
-			String prtStr = JOptionPane.showInputDialog("Enter the port number");
-			int port = Integer.parseInt(prtStr);
-			client = new CAClient(ipStr, port);
 			client.start();
 		}
 	}
